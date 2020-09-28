@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <canvas id="my_canvas"></canvas>
+  </body>
+  <script>
+    var canvas = null;
+    var cxt = null;
+    var image = null;
+    var frameCounter = 0;
+
+    var assets = [
+      'img/robowalk00.png',
+      'img/robowalk01.png',
+      'img/robowalk02.png',
+      'img/robowalk03.png',
+      'img/robowalk04.png',
+      'img/robowalk05.png',
+      'img/robowalk06.png',
+      'img/robowalk07.png',
+      'img/robowalk08.png',
+      'img/robowalk09.png',
+      'img/robowalk10.png',
+      'img/robowalk11.png',
+      'img/robowalk12.png',
+      'img/robowalk13.png',
+      'img/robowalk14.png',
+      'img/robowalk15.png',
+      'img/robowalk16.png',
+      'img/robowalk17.png',
+      'img/robowalk18.png',
+    ];
+
+    var frames = [];
+
+    setup = function () {
+      canvas = document.querySelector('#my_canvas');
+      cxt = canvas.getContext('2d');
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      for (var el = 0; el < assets.length; el++) {
+        frames.push(`./media/${assets[el]}`);
+      }
+      setInterval(animate, 1000 / 30);
+    };
+
+    var animate = function () {
+      frameCounter = (frameCounter + 1) % frames.length;
+      image = new Image();
+      image.onload = onLoadImage;
+      image.src = `${frames[frameCounter]}`;
+    };
+
+    onLoadImage = function () {
+      cxt.clearRect(0, 0, canvas.width, canvas.height);
+      cxt.drawImage(image, 192, 192);
+    };
+
+    //Define a sprite for the atlas
+    defSprite: function(name, x, y,w,h,cx,cy){
+      var spt = {
+        "id": name,
+        "x": x,
+        "y": y,
+        "w": w,
+        "h": h,
+        "cx": cx === null ? 0 : cx,
+        "cy": cy === null ? 0 : cy,
+      };
+      this.sprites.push(spt)
+    }
+
+    parseAtlasDefinition: function(){
+
+    }
+
+    setup();
+  </script>
+</html>
